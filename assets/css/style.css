@@ -3,3 +3,14 @@
     background-color: blue;
     background-image: linear-gradient(to right, rgb(90, 146, 209) , rgb(47, 0, 255))
 }
+
+.custom-card {
+    border:none;
+    border-bottom: 1.5px solid lightslategray;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.custom-card-body {
+    padding-left:0px;
+}
