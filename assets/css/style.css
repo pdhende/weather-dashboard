@@ -1,0 +1,5 @@
+.custom-jumbotron {
+    height: 10px;
+    background-color: blue;
+    background-image: linear-gradient(to right, rgb(90, 146, 209) , rgb(47, 0, 255))
+}
