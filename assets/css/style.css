@@ -1,3 +1,10 @@
+hr {
+    border: 0;
+    height: 3px;
+    background: #ccc;
+    max-width: 94%;
+}
+
 .custom-jumbotron {
     height: 10px;
     background-color: blue;
@@ -6,9 +13,6 @@
 
 .custom-card {
     border:none;
-    border-bottom: 1.5px solid lightslategray;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
 }
 
 .custom-card-body {

@@ -14,7 +14,7 @@
     </head>
 
     <body>
-
+        <!-- Header -->
         <header class="jumbotron jumbotron-fluid text-white custom-jumbotron">
             <div class="container text-center">
             <h1>Weather Dashboard</h1>
@@ -23,6 +23,7 @@
 
         <main class="container-fluid">
             <div class="row">
+                <!-- Section on left with a form for user to input city to search -->
               <section class="col-12 col-md-4 col-lg-3" style="border: 1px;">
                     <div class="card custom-card">
                         <h3>Search for a City:</h3>
@@ -34,8 +35,34 @@
                                 <button class="btn btn-primary btn-block">Search</button>
                             </div>
                         </div>
+                        <hr>
                     </div>
               </section>
+              <!-- Section on right to display current weather conditions of the selcted city -->
+              <section class= "col-12 col-md-8 col-lg-9">
+                <table class="table table-bordered">
+                    <tbody>
+                        <thead><h3 id="city-name">Atlanta</h3></thead>
+                        <tr>
+                            <td class="col-1">Temp: </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Wind: </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Humidity: </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>UV Index: </td>
+                            <td></td>
+                        </tr>
+                   </tbody>
+                </table>  
+              </section>
+              
             </div>
         </main>
     </body>
