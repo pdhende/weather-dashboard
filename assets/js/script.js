@@ -1,12 +1,15 @@
 var searchBtnEl = $("#search-btn");
 var cityName = $("#city-name");
+var currCityName = $("#city-name-value");
 var apiKey = "d182817e86d3db8ccd08526926fc37ac";
+var currTempVal = $("#temp-val");
 
 // Function to capture the city input provided by the user and create URL to make API call
 function getCityWeather() {
    console.log(cityName);
     console.log("in get city weather");
     var cityNameVal = cityName.val();
+    currCityName.text(cityNameVal);
     console.log(cityNameVal);
     var requestCordURL = "http://api.openweathermap.org/geo/1.0/direct?q="+ cityNameVal + "&limit="+ 1 +"&appid="+ apiKey;
     getCoordAPI(requestCordURL); 
@@ -56,6 +59,7 @@ function getCurrWeather(reqWeatherURL) {
                     console.log("inside if");
                     var currentObj = weatherResp[key];
                     console.log(currentObj);
+                    currTempVal.text(currentObj.temp+"°F");
                     var tempVal = currentObj.temp;
                     var humidityVal = currentObj.humidity;
                     var windVal = currentObj.wind_speed;
