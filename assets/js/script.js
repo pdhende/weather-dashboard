@@ -26,13 +26,13 @@ function getCoordAPI(requestCordURL) {
             })
         .then(function (coordResp) {
             console.log(coordResp);
-            for(var key in coordResp) {
-                latitudeVal = coordResp[key].lat;
-                longitudeVal = coordResp[key].lon;
+            for(var i=0; i < coordResp.length; i++) {
+                latitudeVal = coordResp[i].lat;
+                longitudeVal = coordResp[i].lon;
                 console.log("lat: "+latitudeVal);
                 console.log("lon: "+longitudeVal);
             }
-            var reqWeatherURL = "https://api.openweathermap.org/data/2.5/onecall?lat="+ latitudeVal +"&lon="+ longitudeVal +"&exclude=hourly,daily&appid="+ apiKey;
+            var reqWeatherURL = "https://api.openweathermap.org/data/2.5/onecall?lat="+ latitudeVal +"&lon="+ longitudeVal +"&exclude=hourly,daily&units=imperial&appid="+ apiKey;
             console.log(reqWeatherURL);
             getCurrWeather(reqWeatherURL);
         });
@@ -41,6 +41,30 @@ function getCoordAPI(requestCordURL) {
 // Function to get the current weather report for the city input by user
 function getCurrWeather(reqWeatherURL) {
     console.log("in getCurrWeather"+reqWeatherURL);
+    fetch(reqWeatherURL)
+        .then(function(response) {
+            console.log(response);
+            if (!response.ok) {
+                throw response.json();
+              }
+              return response.json();
+            })
+        .then(function (weatherResp) {
+            console.log(weatherResp);
+            for (var key in weatherResp) {
+                if(key === "current") {
+                    console.log("inside if");
+                    var currentObj = weatherResp[key];
+                    console.log(currentObj);
+                    var tempVal = currentObj.temp;
+                    var humidityVal = currentObj.humidity;
+                    var windVal = currentObj.wind_speed;
+                    var UVindex = currentObj.uvi;
+                    console.log(tempVal+ ", " + humidityVal+ ", "+windVal+", "+UVindex);
+                }
+                console.log(key);
+            }
+        });
 }
 
 // Event Listener
