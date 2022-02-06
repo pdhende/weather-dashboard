@@ -3,6 +3,9 @@ var cityName = $("#city-name");
 var currCityName = $("#city-name-value");
 var apiKey = "d182817e86d3db8ccd08526926fc37ac";
 var currTempVal = $("#temp-val");
+var currWindVal = $("#wind-val");
+var currHumidityVal = $("#humidity-val");
+var currUVIndVal = $("#uv-val");
 
 // Function to capture the city input provided by the user and create URL to make API call
 function getCityWeather() {
@@ -56,15 +59,16 @@ function getCurrWeather(reqWeatherURL) {
             console.log(weatherResp);
             for (var key in weatherResp) {
                 if(key === "current") {
-                    console.log("inside if");
                     var currentObj = weatherResp[key];
-                    console.log(currentObj);
                     currTempVal.text(currentObj.temp+"°F");
-                    var tempVal = currentObj.temp;
-                    var humidityVal = currentObj.humidity;
-                    var windVal = currentObj.wind_speed;
-                    var UVindex = currentObj.uvi;
-                    console.log(tempVal+ ", " + humidityVal+ ", "+windVal+", "+UVindex);
+                    currWindVal.text(currentObj.wind_speed+" MPH");
+                    currHumidityVal.text(currentObj.humidity+" %");
+                    currUVIndVal.text(currentObj.uvi);
+                    // var tempVal = currentObj.temp;
+                    // var humidityVal = currentObj.humidity;
+                    // var windVal = currentObj.wind_speed;
+                    // var UVindex = currentObj.uvi;
+                    // console.log(tempVal+ ", " + humidityVal+ ", "+windVal+", "+UVindex);
                 }
                 console.log(key);
             }
