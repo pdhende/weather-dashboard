@@ -47,6 +47,17 @@ function getCoordAPI(requestCordURL) {
 // Function to get the current weather report for the city input by user
 function getCurrWeather(reqWeatherURL) {
     console.log("in getCurrWeather"+reqWeatherURL);
+    var cityHeader = cityNameVal +" ("+moment().format('M/DD/YYYY')+") "
+    var currentObj;
+    var cityHeader;
+    var iconResponse;
+    var tempVal; 
+    var windVal;
+    var humidityVal;
+    var uviVal;
+    var iconType;
+    var getIconURL;
+
     fetch(reqWeatherURL)
         .then(function(response) {
             console.log(response);
@@ -58,27 +69,84 @@ function getCurrWeather(reqWeatherURL) {
         .then(function (weatherResp) {
             console.log(weatherResp);
             for (var key in weatherResp) {
+                if(key === "current") {
+                    currentObj = weatherResp[key];
+                    tempVal = currentObj.temp+"°F";
+                    windVal = currentObj.wind_speed+" MPH";
+                    humidityVal = currentObj.humidity+" %";
+                    uviVal = currentObj.uvi;
+                    var weatherObj = currentObj.weather;
+                    console.log(weatherObj.length);
+                    console.log(tempVal+", "+windVal+", "+humidityVal+", "+uviVal+", ");
+                    console.log(weatherObj.icon);
+                    weatherObj.forEach(function(obj) {
+                        console.log(obj.icon);
+                        iconType = obj.icon;
+                        getIconURL = "http://openweathermap.org/img/wn/"+iconType+"@2x.png";
+                    });
+                    var imgIcon = $('<img>');
+                    imgIcon.attr('src','getIconURL');
+                    currCityName.append(imgIcon);
+
+                    // getIconAPI(getIconURL);
+                    // var iconType = weatherObj.icon;
+                    // var getIconURL = "http://openweathermap.org/img/wn/"+iconType+"@2x.png";
+                    // console.log("icon URL "+getIconURL);
+                    // getIconAPI(getIconURL);
+                }
+
+                // for(var keyVal in weatherObj){
+                    //     console.log(weatherObj[keyVal]);
+                    //     if(weatherObj[keyVal] == "icon") {
+                    //         console.log(weatherObj[keyVal].icon);
+                    //     }
+                    // }
+                    // for(var j=0; j < weatherObj.length;j++) {
+                    //     console.log(weatherObj[j]);
+                    //     if(weatherObj[j] === "icon") {
+                    //         console.log(weatherObj[j]);
+                    //     }
+                    // }
                 // if(key === "weather") {
                 //     var weatherObj = weatherResp[key];
-                //     var iconType = 
+                //     var iconType = weatherObj.icon;
+                //     var getIconURL = "http://openweathermap.org/img/wn/"+iconType+"@2x.png";
+                //     console.log("icon URL "+getIconURL);
+                //     getIconAPI(getIconURL);
                 // }
-                if(key === "current") {
-                    var currentObj = weatherResp[key];
-                    var cityHeader = cityNameVal +" ("+moment().format('M/DD/YYYY')+") "
-                    currCityName.text(cityHeader);
-                    currTempVal.text(currentObj.temp+"°F");
-                    currWindVal.text(currentObj.wind_speed+" MPH");
-                    currHumidityVal.text(currentObj.humidity+" %");
-                    currUVIndVal.text(currentObj.uvi);
-                    // var tempVal = currentObj.temp;
-                    // var humidityVal = currentObj.humidity;
-                    // var windVal = currentObj.wind_speed;
-                    // var UVindex = currentObj.uvi;
-                    // console.log(tempVal+ ", " + humidityVal+ ", "+windVal+", "+UVindex);
-                }
-                console.log(key);
+                // if(iconResponse !== null) {
+                //     console.log("icon "+iconResponse);
+                // }
+            //     if(key === "current") {
+            //         currentObj = weatherResp[key];
+            //         tempVal = currentObj.temp+"°F"
+            //     }
+            //     console.log(key);
+            // }
+            //         currCityName.text(cityHeader);
+            //         currTempVal.text(tempVal);
+            //         currWindVal.text(currentObj.wind_speed+" MPH");
+            //         currHumidityVal.text(currentObj.humidity+" %");
+            //         currUVIndVal.text(currentObj.uvi);
             }
         });
+    //Function to get the icon from the 
+    function getIconAPI(getIconURL) {
+            fetch(getIconURL)
+            .then(function(response) {
+                console.log(response);
+                if (!response.ok) {
+                    throw response.json();
+                }
+                return response.json();
+                })
+            .then(function (iconResp) {
+                console.log("in icon fetch");
+                console.log(iconResp);
+                // console.log("iconResp in fetch"+iconResp);
+                // return iconResp;
+        });
+    }
 }
 
 // Event Listener
