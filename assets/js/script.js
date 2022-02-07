@@ -100,9 +100,9 @@ function getCurrWeather(reqWeatherURL) {
 
                     // Set the values of the weather in the table
                     currTempVal.text(tempVal);
-                    currWindVal.text(currentObj.wind_speed+" MPH");
-                    currHumidityVal.text(currentObj.humidity+" %");
-                    currUVIndVal.text(currentObj.uvi);
+                    currWindVal.text(windVal);
+                    currHumidityVal.text(humidityVal);
+                    currUVIndVal.text(uviVal);
                 }
                 if(key === "daily") {
                     var forecastObj = weatherResp[key];
@@ -121,6 +121,8 @@ function getForcastWeather(forecastObj) {
         var dateValue = moment.unix(forecastObj[i].dt).format("M/DD/YYYY");
         var tempValue = forecastObj[i].temp.max;
         var weatherObjVal = forecastObj[i].weather;
+        var windVal = forecastObj[i].wind_speed;
+        var humidVal = forecastObj[i].humidity;
         weatherObjVal.forEach(function(obj) {
             console.log(obj.icon);
             var wIcon = obj.icon;
@@ -128,12 +130,27 @@ function getForcastWeather(forecastObj) {
         });
         console.log(wIconURL);
         console.log(tempValue);
+
+        // Construct the value for ID's
         var fcDateId = "#date-val-"+ i;
-        var fDate = $(fcDateId);
-        fDate.text(dateValue);
         var fcIconId = "#w-icon-"+ i;
+        var fTempId = "#temp-val-"+ i;
+        var fWIndId = "#wind-val-"+ i;
+        var fHumidityId = "#humid-val-"+ i;
+
+        // Get the elements using the constructed ID's
+        var fDate = $(fcDateId);
         var fIcon = $(fcIconId);
+        var fTemp = $(fTempId);
+        var fWind = $(fWIndId);
+        var fHumidity = $(fHumidityId);
+
+        // Set the values of elements with its respective ID's
+        fDate.text(dateValue);
         fIcon.attr('src',wIconURL);
+        fTemp.text("Temp: "+tempValue+"°F");
+        fWind.text("Wind: "+windVal+" MPH");
+        fHumidity.text("Humidity: "+humidVal+" %");
     }
 }
 
