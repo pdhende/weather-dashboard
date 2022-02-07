@@ -39,9 +39,11 @@ function getCoordAPI(requestCordURL) {
                 console.log("lat: "+latitudeVal);
                 console.log("lon: "+longitudeVal);
             }
-            var reqWeatherURL = "https://api.openweathermap.org/data/2.5/onecall?lat="+ latitudeVal +"&lon="+ longitudeVal +"&exclude=hourly,daily&units=imperial&appid="+ apiKey;
+            var reqWeatherURL = "https://api.openweathermap.org/data/2.5/onecall?lat="+ latitudeVal +"&lon="+ longitudeVal +"&exclude=minutely,hourly&units=imperial&appid="+ apiKey;
+            // var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?lat="+ latitudeVal +"&lon="+ longitudeVal +"&units=imperial&appid="+ apiKey;
             console.log(reqWeatherURL);
             getCurrWeather(reqWeatherURL);
+            // getForcastWeather(forecastURL);
         });
 }
 
@@ -61,7 +63,7 @@ function getCurrWeather(reqWeatherURL) {
 
     fetch(reqWeatherURL)
         .then(function(response) {
-            console.log(response);
+            console.log(response.status);
             if (!response.ok) {
                 throw response.json();
               }
@@ -101,8 +103,17 @@ function getCurrWeather(reqWeatherURL) {
                     currHumidityVal.text(currentObj.humidity+" %");
                     currUVIndVal.text(currentObj.uvi);
                 }
+                if(key === "daily") {
+                    var forecastObj = weatherResp[key];
+                    getForcastWeather(forecastObj);
+                }
             }
         });
+}
+
+// Function to get next 5 days weather forcast
+function getForcastWeather(forecastObj) {
+    console.log(forecastObj.length);
 }
 
 // Event Listener
