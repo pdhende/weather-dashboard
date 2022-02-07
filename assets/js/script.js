@@ -15,8 +15,20 @@ function getCityWeather() {
     console.log("in get city weather");
     cityNameVal = cityName.val();
     console.log(cityNameVal);
+    storeCityName(cityNameVal);
     var requestCordURL = "http://api.openweathermap.org/geo/1.0/direct?q="+ cityNameVal + "&limit="+ 1 +"&appid="+ apiKey;
     getCoordAPI(requestCordURL); 
+}
+
+// Function to store the city name in local Storage and display it as buttons
+function storeCityName(cityNameVal) {
+    var savedCities = JSON.parse(localStorage.getItem("savedCityArr")); // Get previously stored cities from local storage
+    if(savedCities === null) {
+        var newCityObj = [{
+            city: cityNameVal
+        }];
+    }
+    localStorage.setItem("savedCityArr",JSON.stringify(newCityObj));
 }
 
 // Function to get the coordinates of a location
