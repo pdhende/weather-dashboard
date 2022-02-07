@@ -99,10 +99,10 @@ function getCurrWeather(reqWeatherURL) {
                     currCityName.append(imgIcon);
 
                     // Set the values of the weather in the table
-                    currTempVal.text(tempVal);
-                    currWindVal.text(windVal);
-                    currHumidityVal.text(humidityVal);
-                    currUVIndVal.text(uviVal);
+                    currTempVal.text("Temp: "+tempVal);
+                    currWindVal.text("Wind: "+windVal);
+                    currHumidityVal.text("Humidity: "+humidityVal);
+                    currUVIndVal.text("UV Index: "+uviVal);
                 }
                 if(key === "daily") {
                     var forecastObj = weatherResp[key];

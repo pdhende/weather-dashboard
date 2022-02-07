@@ -24,7 +24,7 @@
         <main class="container-fluid">
             <div class="row">
                 <!-- Section on left with a form for user to input city to search -->
-              <section class="col-12 col-md-4 col-lg-3" style="border: 1px;">
+              <section class="col-3 col-md-3" style="border: 1px;">
                     <div class="card custom-card">
                         <h3>Search for a City:</h3>
                         <div class="card-body custom-card-body">
@@ -39,31 +39,15 @@
                     </div>
               </section>
               <!-- Section on right to display current weather conditions of the selected city -->
-              <section class= "col-12 col-md-8 col-lg-9">
+              <section class= "col-9 col-md-9">
                 <div class="row">
                     <table class="table table-bordered">
                         <tbody>
-                            <thead>
-                                <div>
-                                    <h3 id="city-name-value"></h3>
-                                </div>
-                            </thead>
-                            <tr>
-                                <td class="col-1">Temp: </td>
-                                <td id="temp-val"></td>
-                            </tr>
-                            <tr>
-                                <td>Wind: </td>
-                                <td id="wind-val"></td>
-                            </tr>
-                            <tr>
-                                <td>Humidity: </td>
-                                <td id="humidity-val"></td>
-                            </tr>
-                            <tr>
-                                <td>UV Index: </td>
-                                <td id="uv-val"></td>
-                            </tr>
+                            <tr><td><h3 id="city-name-value">City</h3></td></tr>
+                            <tr><td id="temp-val">Temp: </td></tr>
+                            <tr><td id="wind-val">Wind: </td></tr>
+                            <tr><td id="humidity-val">Humidity: </td></tr>
+                            <tr><td id="uv-val">UV Index: </td></tr>
                         </tbody>
                     </table>  
                 </div>
