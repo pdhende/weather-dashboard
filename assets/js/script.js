@@ -6,6 +6,7 @@ var currTempVal = $("#temp-val");
 var currWindVal = $("#wind-val");
 var currHumidityVal = $("#humidity-val");
 var currUVIndVal = $("#uv-val");
+var forecastTbl1 = $("#day-1");
 var cityNameVal;
 
 // Function to capture the city input provided by the user and create URL to make API call
@@ -113,11 +114,26 @@ function getCurrWeather(reqWeatherURL) {
 
 // Function to get next 5 days weather forcast
 function getForcastWeather(forecastObj) {
+    var wIconURL;
+
     console.log(forecastObj);
-    for(var i =0; i < 6; i++) {
+    for(var i =1; i < 7; i++) {
         var dateValue = moment.unix(forecastObj[i].dt).format("M/DD/YYYY");
         var tempValue = forecastObj[i].temp.max;
+        var weatherObjVal = forecastObj[i].weather;
+        weatherObjVal.forEach(function(obj) {
+            console.log(obj.icon);
+            var wIcon = obj.icon;
+            wIconURL = "http://openweathermap.org/img/wn/"+wIcon+".png";
+        });
+        console.log(wIconURL);
         console.log(tempValue);
+        var fcDateId = "#date-val-"+ i;
+        var fDate = $(fcDateId);
+        fDate.text(dateValue);
+        var fcIconId = "#w-icon-"+ i;
+        var fIcon = $(fcIconId);
+        fIcon.attr('src',wIconURL);
     }
 }
 

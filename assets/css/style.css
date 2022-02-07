@@ -18,3 +18,8 @@ hr {
 .custom-card-body {
     padding-left:0px;
 }
+
+.custom-table-info {
+    background-color: rgb(48, 48, 95);
+    color: white;
+}
