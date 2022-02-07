@@ -113,7 +113,12 @@ function getCurrWeather(reqWeatherURL) {
 
 // Function to get next 5 days weather forcast
 function getForcastWeather(forecastObj) {
-    console.log(forecastObj.length);
+    console.log(forecastObj);
+    for(var i =0; i < 6; i++) {
+        var dateValue = moment.unix(forecastObj[i].dt).format("M/DD/YYYY");
+        var tempValue = forecastObj[i].temp.max;
+        console.log(tempValue);
+    }
 }
 
 // Event Listener
