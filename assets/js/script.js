@@ -7,6 +7,8 @@ var currWindVal = $("#wind-val");
 var currHumidityVal = $("#humidity-val");
 var currUVIndVal = $("#uv-val");
 var forecastTbl1 = $("#day-1");
+var cityDisplayEl = $("#city-display");
+var errorMsgEl = $("#error-msg");
 var cityNameVal;
 
 // Function to capture the city input provided by the user and create URL to make API call
@@ -14,8 +16,8 @@ function getCityWeather() {
    console.log(cityName);
     console.log("in get city weather");
     cityNameVal = cityName.val();
+    cityNameVal = cityNameVal.charAt(0).toUpperCase() + cityNameVal.slice(1).toLowerCase();
     console.log(cityNameVal);
-    storeCityName(cityNameVal);
     var requestCordURL = "http://api.openweathermap.org/geo/1.0/direct?q="+ cityNameVal + "&limit="+ 1 +"&appid="+ apiKey;
     getCoordAPI(requestCordURL); 
 }
@@ -27,8 +29,19 @@ function storeCityName(cityNameVal) {
         var newCityObj = [{
             city: cityNameVal
         }];
+        localStorage.setItem("savedCityArr",JSON.stringify(newCityObj));
     }
-    localStorage.setItem("savedCityArr",JSON.stringify(newCityObj));
+    else {
+            var cityExists = savedCities.filter(obj => obj.city === cityNameVal);
+            if(cityExists.length === 0) {
+                var prevObj = savedCities;
+                var newCityObj = {
+                    city: cityNameVal
+                };
+                prevObj.push(newCityObj);
+                localStorage.setItem("savedCityArr",JSON.stringify(prevObj));
+            }
+    }
 }
 
 // Function to get the coordinates of a location
@@ -37,7 +50,7 @@ function getCoordAPI(requestCordURL) {
     var longitudeVal;
     fetch(requestCordURL)
         .then(function(response) {
-            console.log(response);
+            console.log(response.status);
             if (!response.ok) {
                 throw response.json();
               }
@@ -53,10 +66,9 @@ function getCoordAPI(requestCordURL) {
                 console.log("lon: "+longitudeVal);
             }
             var reqWeatherURL = "https://api.openweathermap.org/data/2.5/onecall?lat="+ latitudeVal +"&lon="+ longitudeVal +"&exclude=minutely,hourly&units=imperial&appid="+ apiKey;
-            // var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?lat="+ latitudeVal +"&lon="+ longitudeVal +"&units=imperial&appid="+ apiKey;
+
             console.log(reqWeatherURL);
             getCurrWeather(reqWeatherURL);
-            // getForcastWeather(forecastURL);
         });
 }
 
@@ -84,6 +96,8 @@ function getCurrWeather(reqWeatherURL) {
             })
         .then(function (weatherResp) {
             console.log(weatherResp);
+            // Call function to store city name in Local Storage
+            storeCityName(cityNameVal);
             for (var key in weatherResp) {
                 //if the property name = current then extract details like temp, wind speed, humidity and UV index
                 if(key === "current") {             
@@ -114,7 +128,23 @@ function getCurrWeather(reqWeatherURL) {
                     currTempVal.text("Temp: "+tempVal);
                     currWindVal.text("Wind: "+windVal);
                     currHumidityVal.text("Humidity: "+humidityVal);
-                    currUVIndVal.text("UV Index: "+uviVal);
+
+                    // Create a color coded badge based on UV Index
+                    var className;
+                    if(uviVal >= 0 && uviVal < 3) {
+                        className = "badge badge-success";
+                    }
+                    else if(uviVal >= 3 && uviVal < 8) {
+                        className = "badge badge-warning";
+                    }
+                    else {
+                        className = "badge badge-danger";
+                    }
+                    var uvBadge = $('<span>');
+                    uvBadge.addClass(className);
+                    uvBadge.text(uviVal);
+                    currUVIndVal.text("UV Index: ");
+                    currUVIndVal.append(uvBadge);
                 }
                 if(key === "daily") {
                     var forecastObj = weatherResp[key];
