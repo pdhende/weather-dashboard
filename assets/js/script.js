@@ -98,6 +98,8 @@ function getCurrWeather(reqWeatherURL) {
             console.log(weatherResp);
             // Call function to store city name in Local Storage
             storeCityName(cityNameVal);
+            // Call function to show added city button
+            getStoredCities();
             for (var key in weatherResp) {
                 //if the property name = current then extract details like temp, wind speed, humidity and UV index
                 if(key === "current") {             
@@ -195,6 +197,28 @@ function getForcastWeather(forecastObj) {
         fHumidity.text("Humidity: "+humidVal+" %");
     }
 }
+
+//Function to retieve the stored cities and display them as buttons
+function getStoredCities() {
+    var storedCities = JSON.parse(localStorage.getItem("savedCityArr")); // Get previously stored cities from local storage
+    if(storedCities !== null) {
+
+        storedCities.forEach(function(obj) {
+            var cityN = obj.city;
+            // Create rows in the table and add buttons for each city
+            var tRow = $('<tr>');
+            var tCell = $('<td>');
+            var cityBttn = $('<button>');
+            cityBttn.addClass("city-button");
+            cityBttn.text(cityN);
+            cityDisplayEl.append(tRow);
+            tRow.append(tCell);
+            tCell.append(cityBttn);
+        });
+    }
+} 
+
+getStoredCities();
 
 // Event Listener
 searchBtnEl.on('click', getCityWeather);

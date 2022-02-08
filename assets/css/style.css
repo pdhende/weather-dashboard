@@ -23,3 +23,9 @@ hr {
     background-color: rgb(48, 48, 95);
     color: white;
 }
+
+.city-button {
+    background-color: #ccc;
+    border-radius: 5%;
+    border:none;
+}
