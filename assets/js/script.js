@@ -11,13 +11,15 @@ var cityDisplayEl = $("#city-display");
 var errorMsgEl = $("#error-msg");
 var cityNameVal;
 
+
 // Function to capture the city input provided by the user and create URL to make API call
 function getCityWeather() {
-   console.log(cityName);
-    console.log("in get city weather");
-    cityNameVal = cityName.val();
-    cityNameVal = cityNameVal.charAt(0).toUpperCase() + cityNameVal.slice(1).toLowerCase();
-    console.log(cityNameVal);
+   
+    if(cityName.val() !== "") {
+        cityNameVal = cityName.val();
+        cityNameVal = cityNameVal.charAt(0).toUpperCase() + cityNameVal.slice(1).toLowerCase();
+        cityName.val('');
+    }
     var requestCordURL = "http://api.openweathermap.org/geo/1.0/direct?q="+ cityNameVal + "&limit="+ 1 +"&appid="+ apiKey;
     getCoordAPI(requestCordURL); 
 }
@@ -30,6 +32,7 @@ function storeCityName(cityNameVal) {
             city: cityNameVal
         }];
         localStorage.setItem("savedCityArr",JSON.stringify(newCityObj));
+        createButtons(cityNameVal);
     }
     else {
             var cityExists = savedCities.filter(obj => obj.city === cityNameVal);
@@ -40,6 +43,7 @@ function storeCityName(cityNameVal) {
                 };
                 prevObj.push(newCityObj);
                 localStorage.setItem("savedCityArr",JSON.stringify(prevObj));
+                createButtons(cityNameVal);
             }
     }
 }
@@ -50,31 +54,25 @@ function getCoordAPI(requestCordURL) {
     var longitudeVal;
     fetch(requestCordURL)
         .then(function(response) {
-            console.log(response.status);
             if (!response.ok) {
                 throw response.json();
               }
               return response.json();
             })
         .then(function (coordResp) {
-            console.log(coordResp);
             // Get the coordinates of the location 
             for(var i=0; i < coordResp.length; i++) {
                 latitudeVal = coordResp[i].lat;
                 longitudeVal = coordResp[i].lon;
-                console.log("lat: "+latitudeVal);
-                console.log("lon: "+longitudeVal);
             }
             var reqWeatherURL = "https://api.openweathermap.org/data/2.5/onecall?lat="+ latitudeVal +"&lon="+ longitudeVal +"&exclude=minutely,hourly&units=imperial&appid="+ apiKey;
 
-            console.log(reqWeatherURL);
             getCurrWeather(reqWeatherURL);
         });
 }
 
 // Function to get the current weather report for the city input by user
 function getCurrWeather(reqWeatherURL) {
-    console.log("in getCurrWeather"+reqWeatherURL);
     var cityHeader = cityNameVal +" ("+moment().format('M/DD/YYYY')+") "
     var currentObj;
     var cityHeader;
@@ -88,18 +86,15 @@ function getCurrWeather(reqWeatherURL) {
 
     fetch(reqWeatherURL)
         .then(function(response) {
-            console.log(response.status);
             if (!response.ok) {
                 throw response.json();
               }
               return response.json();
             })
         .then(function (weatherResp) {
-            console.log(weatherResp);
             // Call function to store city name in Local Storage
             storeCityName(cityNameVal);
-            // Call function to show added city button
-            getStoredCities();
+
             for (var key in weatherResp) {
                 //if the property name = current then extract details like temp, wind speed, humidity and UV index
                 if(key === "current") {             
@@ -111,11 +106,7 @@ function getCurrWeather(reqWeatherURL) {
 
                     //extract the icon value from the weather object
                     var weatherObj = currentObj.weather;
-                    console.log(weatherObj.length);
-                    console.log(tempVal+", "+windVal+", "+humidityVal+", "+uviVal+", ");
-                    console.log(weatherObj.icon);
                     weatherObj.forEach(function(obj) {
-                        console.log(obj.icon);
                         iconType = obj.icon;
                         getIconURL = "http://openweathermap.org/img/wn/"+iconType+".png";
                     });
@@ -160,7 +151,6 @@ function getCurrWeather(reqWeatherURL) {
 function getForcastWeather(forecastObj) {
     var wIconURL;
 
-    console.log(forecastObj);
     for(var i =1; i < 7; i++) {
         var dateValue = moment.unix(forecastObj[i].dt).format("M/DD/YYYY");
         var tempValue = forecastObj[i].temp.max;
@@ -168,12 +158,9 @@ function getForcastWeather(forecastObj) {
         var windVal = forecastObj[i].wind_speed;
         var humidVal = forecastObj[i].humidity;
         weatherObjVal.forEach(function(obj) {
-            console.log(obj.icon);
             var wIcon = obj.icon;
             wIconURL = "http://openweathermap.org/img/wn/"+wIcon+".png";
         });
-        console.log(wIconURL);
-        console.log(tempValue);
 
         // Construct the value for ID's
         var fcDateId = "#date-val-"+ i;
@@ -201,26 +188,29 @@ function getForcastWeather(forecastObj) {
 //Function to retieve the stored cities and display them as buttons
 function getStoredCities() {
     var storedCities = JSON.parse(localStorage.getItem("savedCityArr")); // Get previously stored cities from local storage
-    if(storedCities !== null) {
 
+    if(storedCities !== null) {
         storedCities.forEach(function(obj) {
             var cityN = obj.city;
-            // Create rows in the table and add buttons for each city
-            var tRow = $('<tr>');
-            var tCell = $('<td>');
-            var cityBttn = $('<button>');
-            cityBttn.addClass("city-button");
-            cityBttn.text(cityN);
-            cityDisplayEl.append(tRow);
-            tRow.append(tCell);
-            tCell.append(cityBttn);
+            createButtons(cityN);
         });
     }
-} 
+}
+
+// Function to create city buttons
+function createButtons(cityN) {
+        var cityBttn = $('<button>');
+        cityBttn.addClass("btn btn-secondary btn-lg btn-block city-button");
+        cityBttn.text(cityN);
+        cityDisplayEl.append(cityBttn);
+}
 
 getStoredCities();
 
 // Event Listener
 searchBtnEl.on('click', getCityWeather);
-
+$(document).on('click','.city-button', function() {
+    cityNameVal = $(this).text();
+    getCityWeather();
+});
 

@@ -1,3 +1,4 @@
+
 hr {
     border: 0;
     height: 3px;
@@ -19,13 +20,4 @@ hr {
     padding-left:0px;
 }
 
-.custom-table-info {
-    background-color: rgb(48, 48, 95);
-    color: white;
-}
 
-.city-button {
-    background-color: #ccc;
-    border-radius: 5%;
-    border:none;
-}

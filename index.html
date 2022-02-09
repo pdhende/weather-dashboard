@@ -37,83 +37,81 @@
                         </div>
                         <hr>
                     </div>
-                    <div>
-                        <table id="city-display">
-                            <!-- <tr><td>1</td></tr>
-                            <tr><td>2</td></tr> -->
-                        </table></div>
+                    <div id="city-display">
+                    </div>
               </section>
               <!-- Section on right to display current weather conditions of the selected city -->
               <section class= "col-9 col-md-9">
                 <div class="row" id="error-msg"></div>
-                <div class="row">
-                    <table class="table table-bordered">
-                        <tbody>
-                            <tr><td><h3 id="city-name-value">City</h3></td></tr>
-                            <tr><td id="temp-val">Temp: </td></tr>
-                            <tr><td id="wind-val">Wind: </td></tr>
-                            <tr><td id="humidity-val">Humidity: </td></tr>
-                            <tr><td id="uv-val">UV Index: </td></tr>
-                        </tbody>
-                    </table>  
+                <div class="row pb-3 mr-2">
+                    <div class="container border border-info rounded pb-4">
+                        <div class="pt-2 pb-2"><h3 id="city-name-value">City</h3></div>
+                        <div class="pb-2" id="temp-val">Temp: </div>
+                        <div class="pb-2" id="wind-val">Wind: </div>
+                        <div class="pb-2" id="humidity-val">Humidity: </div>
+                        <div class="pb-2" id="uv-val">UV Index: </div>
+                    </div>  
                 </div>
                 <!-- Section to display 5 day forecast fo the selected city -->
                 <div class="row">
+                    <div class="ml-2 pb-2"><h4>5 Day Forecast:</h4></div>
+                </div>
+                <div class="row mr-1">
                     <div class="col-sm">
-                        <table class="table custom-table-info" id="day-1">
-                            <tbody>
-                                <tr><td><h4 id="date-val-1">Date</h4></td></tr>
-                                <tr><td><img  id="w-icon-1" src=""/></td></tr>
-                                <tr><td id="temp-val-1">Temp: </td></tr>
-                                <tr><td id="wind-val-1">Wind: </td></tr>
-                                <tr><td id="humid-val-1">Humidity: </td></tr>
-                           </tbody>
-                        </table>  
-                    </div>
-                    <div class="col-sm">
-                        <table class="table custom-table-info">
-                            <tbody>
-                                <tr><td><h4 id="date-val-2">Date</h4></td></tr>
-                                <tr><td><img  id="w-icon-2" src=""/></td></tr>
-                                <tr><td id="temp-val-2">Temp: </td></tr>
-                                <tr><td id="wind-val-2">Wind: </td></tr>
-                                <tr><td id="humid-val-2">Humidity: </td></tr>
-                           </tbody>
-                        </table>  
-                    </div>
-                    <div class="col-sm">
-                        <table class="table custom-table-info">
-                            <tbody>
-                                <tr><td><h4 id="date-val-3">Date</h4></td></tr>
-                                <tr><td><img  id="w-icon-3" src=""/></td></tr>
-                                <tr><td id="temp-val-3">Temp: </td></tr>
-                                <tr><td id="wind-val-3">Wind: </td></tr>
-                                <tr><td id="humid-val-3">Humidity: </td></tr>
-                           </tbody>
-                        </table>  
-                    </div>
-                    <div class="col-sm">
-                        <table class="table custom-table-info">
-                            <tbody>
-                                <tr><td><h4 id="date-val-4">Date</h4></td></tr>
-                                <tr><td><img  id="w-icon-4" src=""/></td></tr>
-                                <tr><td id="temp-val-4">Temp: </td></tr>
-                                <tr><td id="wind-val-4">Wind: </td></tr>
-                                <tr><td id="humid-val-4">Humidity: </td></tr>
-                           </tbody>
-                        </table>  
-                    </div>
-                    <div class="col-sm">
-                        <table class="table custom-table-info">
-                            <tbody>
-                                <tr><td><h4 id="date-val-5">Date</h4></td></tr>
-                                <tr><td><img  id="w-icon-5" src=""/></td></tr>
-                                <tr><td id="temp-val-5">Temp: </td></tr>
-                                <tr><td id="wind-val-5">Wind: </td></tr>
-                                <tr><td id="humid-val-5">Humidity: </td></tr>
-                           </tbody>
-                        </table>  
-                    </div>
+                        <div class="card text-white bg-info mb-3">
+                          <div class="card-body">
+                            <h5 class="card-title"id="date-val-1">Date</h5>
+                            <span><img id="w-icon-1" src=""/></span>
+                            <p class="card-text" id="temp-val-1">Temp: </p>
+                            <p class="card-text" id="wind-val-1">Wind: </p>
+                            <p class="card-text" id="humid-val-1">Humidity: </p>
+                          </div>
+                        </div>
+                      </div>
+                        <div class="col-sm">
+                          <div class="card text-white bg-info mb-3">
+                            <div class="card-body">
+                              <h5 class="card-title"id="date-val-2">Date</h5>
+                              <span><img id="w-icon-2" src=""/></span>
+                              <p class="card-text" id="temp-val-2">Temp: </p>
+                              <p class="card-text" id="wind-val-2">Wind: </p>
+                              <p class="card-text" id="humid-val-2">Humidity: </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm">
+                          <div class="card text-white bg-info mb-3">
+                            <div class="card-body">
+                              <h5 class="card-title"id="date-val-3">Date</h5>
+                              <span><img id="w-icon-3" src=""/></span>
+                              <p  class="card-text" id="temp-val-3">Temp: </p>
+                              <p class="card-text" id="wind-val-3">Wind: </p>
+                              <p class="card-text" id="humid-val-3">Humidity: </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm">
+                          <div class="card text-white bg-info mb-3">
+                            <div class="card-body">
+                              <h5 class="card-title"id="date-val-4">Date</h5>
+                              <span><img id="w-icon-4" src=""/></span>
+                              <p class="card-text" id="temp-val-4">Temp: </p>
+                              <p class="card-text" id="wind-val-4">Wind: </p>
+                              <p class="card-text" id="humid-val-4">Humidity: </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm">
+                          <div class="card text-white bg-info mb-3">
+                            <div class="card-body">
+                              <h5 class="card-title"id="date-val-5">Date</h5>
+                              <span><img id="w-icon-5" src=""/></span>
+                              <p class="card-text" id="temp-val-5">Temp: </p>
+                              <p class="card-text" id="wind-val-5">Wind: </p>
+                              <p class="card-text" id="humid-val-5">Humidity: </p>
+                            </div>
+                          </div>
+                        </div>
                 </div>
                </section>
             </div>
