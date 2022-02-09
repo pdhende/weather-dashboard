@@ -159,7 +159,7 @@ function getForcastWeather(forecastObj) {
         var humidVal = forecastObj[i].humidity;
         weatherObjVal.forEach(function(obj) {
             var wIcon = obj.icon;
-            wIconURL = "http://openweathermap.org/img/wn/"+wIcon+".png";
+            wIconURL = "https://openweathermap.org/img/wn/"+wIcon+".png";
         });
 
         // Construct the value for ID's
