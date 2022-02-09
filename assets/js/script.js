@@ -208,7 +208,22 @@ function createButtons(cityN) {
 getStoredCities();
 
 // Event Listener
-searchBtnEl.on('click', getCityWeather);
+searchBtnEl.on('click', function() {
+
+    var formEL = $('#input-form');
+    var errorEl = $('#error-msg');
+    // Validate if user has entered city name
+    if(cityName.val() === "") {
+        errorEl.addClass('text-danger');
+        errorEl.text("Please enter city name!");
+        formEL.append(errorEl);
+    }
+    else {
+     errorEl.text("");
+     getCityWeather();
+    }
+});
+
 $(document).on('click','.city-button', function() {
     cityNameVal = $(this).text();
     getCityWeather();

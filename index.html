@@ -27,10 +27,11 @@
               <section class="col-3 col-md-3" style="border: 1px;">
                     <div class="card custom-card">
                         <h3>Search for a City:</h3>
-                        <div class="card-body custom-card-body">
+                        <div class="card-body custom-card-body" id="input-form">
                             <div class="form-group">
                                 <input class="form-control" id = "city-name" type="text" placeholder="Enter city name">
                             </div>
+                            <div><p id="error-msg"></p></div>
                             <div>
                                 <button class="btn btn-primary btn-block" id="search-btn">Search</button>
                             </div>
@@ -42,7 +43,6 @@
               </section>
               <!-- Section on right to display current weather conditions of the selected city -->
               <section class= "col-9 col-md-9">
-                <div class="row" id="error-msg"></div>
                 <div class="row pb-3 mr-2">
                     <div class="container border border-info rounded pb-4">
                         <div class="pt-2 pb-2"><h3 id="city-name-value">City</h3></div>
