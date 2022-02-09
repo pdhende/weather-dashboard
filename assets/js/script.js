@@ -20,7 +20,7 @@ function getCityWeather() {
         cityNameVal = cityNameVal.charAt(0).toUpperCase() + cityNameVal.slice(1).toLowerCase();
         cityName.val('');
     }
-    var requestCordURL = "http://api.openweathermap.org/geo/1.0/direct?q="+ cityNameVal + "&limit="+ 1 +"&appid="+ apiKey;
+    var requestCordURL = "https://api.openweathermap.org/geo/1.0/direct?q="+ cityNameVal + "&limit="+ 1 +"&appid="+ apiKey;
     getCoordAPI(requestCordURL); 
 }
 
@@ -108,7 +108,7 @@ function getCurrWeather(reqWeatherURL) {
                     var weatherObj = currentObj.weather;
                     weatherObj.forEach(function(obj) {
                         iconType = obj.icon;
-                        getIconURL = "http://openweathermap.org/img/wn/"+iconType+".png";
+                        getIconURL = "https://openweathermap.org/img/wn/"+iconType+".png";
                     });
                     
                     // Append the Icon(image) to the header
