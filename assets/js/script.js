@@ -8,7 +8,8 @@ var currHumidityVal = $("#humidity-val");
 var currUVIndVal = $("#uv-val");
 var forecastTbl1 = $("#day-1");
 var cityDisplayEl = $("#city-display");
-var errorMsgEl = $("#error-msg");
+var formEL = $('#input-form');
+var errorEl = $('#error-msg');
 var cityNameVal;
 
 
@@ -210,8 +211,6 @@ getStoredCities();
 // Event Listener
 searchBtnEl.on('click', function() {
 
-    var formEL = $('#input-form');
-    var errorEl = $('#error-msg');
     // Validate if user has entered city name
     if(cityName.val() === "") {
         errorEl.addClass('text-danger');
@@ -225,6 +224,9 @@ searchBtnEl.on('click', function() {
 });
 
 $(document).on('click','.city-button', function() {
+    if(errorEl.text() !== null) {
+        errorEl.text("");
+    }
     cityNameVal = $(this).text();
     getCityWeather();
 });
